@@ -1,0 +1,236 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark-mode {
+  background-color: #333;
+  color: #f4f4f4;
+}
+
+.container {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 800px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.container.dark-mode {
+  background: #444;
+  color: #f4f4f4;
+}
+
+h1 {
+  text-align: center;
+  color: inherit;
+}
+
+button,
+select,
+textarea {
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 14px;
+}
+
+#add-button {
+  background-color: #28a745;
+  color: white;
+}
+
+#add-button:hover {
+  background-color: #218838;
+}
+
+#toggle-dark-mode {
+  background-color: #007bff;
+  color: white;
+  margin-bottom: 20px;
+  /* Adiciona margem para distanciar o botão */
+}
+
+#toggle-dark-mode:hover {
+  background-color: #0056b3;
+}
+
+.form-group {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+#message-input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  margin-right: 10px;
+}
+
+.options-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.import-export {
+  display: flex;
+  gap: 10px;
+}
+
+.import-export button {
+  background-color: #17a2b8;
+  color: white;
+}
+
+.import-export button:hover {
+  background-color: #138496;
+}
+
+.sort-options {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.sort-options label {
+  margin-right: 5px;
+}
+
+.sort-options select {
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+.messages-container {
+  display: flex;
+  justify-content: space-between;
+  transition: filter 0.3s;
+}
+
+.column {
+  flex: 1;
+  margin: 0 10px;
+}
+
+.message-box {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.message-box:hover {
+  background-color: #f1f1f1;
+}
+
+body.dark-mode .message-box {
+  background: #555;
+  border-color: #666;
+}
+
+body.dark-mode .message-box:hover {
+  background-color: #666;
+}
+
+.notification {
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #28a745;
+  /* Verde para indicar sucesso */
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  display: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-mode .notification {
+  background-color: #28a745;
+  color: white;
+}
+
+.popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  border: 2px solid #000;
+  /* Adiciona borda visível */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  opacity: 0;
+  transition: all 0.5s ease;
+  /* Suaviza a animação */
+}
+
+.popup.show {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+body.dark-mode .popup {
+  background-color: #444;
+  color: #f4f4f4;
+  border: 2px solid #fff;
+  /* Borda branca no modo escuro */
+}
+
+body.blur-background {
+  overflow: hidden;
+  /* Impede rolagem da página */
+}
+
+body.blur-background .container {
+  filter: blur(5px);
+  pointer-events: none;
+  /* Desativa interação com elementos no fundo */
+}
+
+.popup-content {
+  text-align: center;
+}
+
+.confirm-delete {
+  background-color: #dc3545;
+  color: white;
+  margin-right: 10px;
+}
+
+.confirm-delete:hover {
+  background-color: #c82333;
+}
+
+.cancel-delete {
+  background-color: #6c757d;
+  color: white;
+}
+
+.cancel-delete:hover {
+  background-color: #5a6268;
+}

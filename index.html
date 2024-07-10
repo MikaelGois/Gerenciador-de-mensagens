@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerenciador de Mensagens</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1>Gerenciador de Mensagens</h1>
+    <button id="toggle-dark-mode">Modo Escuro</button>
+    <div class="form-group">
+      <textarea id="message-input" rows="2" placeholder="Digite sua mensagem..."></textarea>
+      <button id="add-button">Adicionar Mensagem</button>
+    </div>
+    <div class="options-container">
+      <div class="sort-options">
+        <label for="sort-select">Ordenar por:</label>
+        <select id="sort-select">
+          <option value="most-used">Mais Utilizadas</option>
+          <option value="recently-used">Usadas Recentemente</option>
+          <option value="date-added-oldest">Cadastro mais antigo</option>
+          <option value="date-added-newest">Cadastro mais recente</option>
+        </select>
+      </div>
+      <div class="import-export">
+        <input type="file" id="import-file" style="display: none;">
+        <button id="import-button">Importar</button>
+        <button id="export-button">Exportar</button>
+      </div>
+    </div>
+    <div class="messages-container">
+      <div id="column1" class="column"></div>
+      <div id="column2" class="column"></div>
+    </div>
+  </div>
+  <div id="notification" class="notification"></div>
+  <div id="popup" class="popup">
+    <div class="popup-content">
+      <p>Tem certeza que deseja excluir esta mensagem?</p>
+      <button id="confirm-delete" class="confirm-delete">Excluir</button>
+      <button id="cancel-delete" class="cancel-delete">Cancelar</button>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+
+</html>
