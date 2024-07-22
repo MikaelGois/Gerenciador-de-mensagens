@@ -5,18 +5,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gerenciador de Mensagens</title>
+  <script src="script.js"></script>
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
   <div class="container">
     <h1>Gerenciador de Mensagens</h1>
+
+    <!-- Botão de modo escuro -->
     <button id="toggle-dark-mode">Modo Escuro</button>
+
+    <!-- Formulário de adição de mensagens -->
     <div class="form-group">
       <textarea id="message-input" rows="2" placeholder="Digite sua mensagem..."></textarea>
       <button id="add-button">Adicionar Mensagem</button>
     </div>
+
+    <!-- Container de opções -->
     <div class="options-container">
+
+      <!-- Filtro de mensagens à esquerda -->
       <div class="sort-options">
         <label for="sort-select">Ordenar por:</label>
         <select id="sort-select">
@@ -26,26 +35,60 @@
           <option value="date-added-newest">Cadastro mais recente</option>
         </select>
       </div>
+
+      <!-- Botões à direita -->
       <div class="import-export">
+        <!-- Botão de deletar selecionadas -->
+        <button id="delete-selected-button" style="display:none;">Deletar</button>
+        <!-- Botão de selecionar -->
+        <button id="select-button">Selecionar</button>
+        <!-- Botão de importar - Não está funcionando -->
         <input type="file" id="import-file" style="display: none;">
         <button id="import-button">Importar</button>
-        <button id="export-button">Exportar</button>
+        <!-- Botão de exportar / exportar selecionadas -->
+        <button id="export-button" disabled>Exportar</button> <!-- Botão começa desabilitado -->
       </div>
     </div>
+
+    <!-- Mensagens -->
     <div class="messages-container">
       <div id="column1" class="column"></div>
       <div id="column2" class="column"></div>
     </div>
+
+    <!-- Paginação -->
+    <div class="pagination">
+      <button id="prev-page" disabled>Anterior</button>
+      <button id="next-page" disabled>Próximo</button>
+    </div>
   </div>
+
   <div id="notification" class="notification"></div>
-  <div id="popup" class="popup">
+
+  <!-- Popup de edição -->
+  <div id="edit-popup" class="popup">
+    <div class="popup-content">
+      <textarea id="edit-message-input" rows="2"></textarea>
+      <button id="confirm-edit" class="confirm-edit">Editar Mensagem</button>
+      <button id="cancel-edit" class="cancel-edit">Cancelar</button>
+    </div>
+  </div>
+
+  <!-- Popup de exclusão -->
+  <div id="delete-popup" class="popup">
     <div class="popup-content">
       <p>Tem certeza que deseja excluir esta mensagem?</p>
       <button id="confirm-delete" class="confirm-delete">Excluir</button>
       <button id="cancel-delete" class="cancel-delete">Cancelar</button>
     </div>
   </div>
-  <script src="script.js"></script>
+
+  <!-- Menu de contexto -->
+  <div id="context-menu" class="context-menu">
+    <button id="edit-option">Editar</button>
+    <button id="delete-option" class="delete-option">Excluir</button>
+  </div>
+
 </body>
 
 </html>

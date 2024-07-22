@@ -61,7 +61,6 @@ button {
   background-color: #007bff;
   color: white;
   margin-bottom: 20px;
-  /* Adiciona margem para distanciar o botão */
 }
 
 #toggle-dark-mode:hover {
@@ -102,6 +101,11 @@ button {
   background-color: #138496;
 }
 
+.import-export button:disabled {
+  background-color: #b5d1d8;
+  cursor: not-allowed;
+}
+
 .sort-options {
   display: flex;
   gap: 5px;
@@ -137,6 +141,7 @@ button {
   margin-bottom: 10px;
   cursor: pointer;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  position: relative;
 }
 
 .message-box:hover {
@@ -158,7 +163,6 @@ body.dark-mode .message-box:hover {
   left: 50%;
   transform: translateX(-50%);
   background-color: #28a745;
-  /* Verde para indicar sucesso */
   color: white;
   padding: 10px 20px;
   border-radius: 5px;
@@ -181,12 +185,10 @@ body.dark-mode .notification {
   padding: 20px;
   border-radius: 10px;
   border: 2px solid #000;
-  /* Adiciona borda visível */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   z-index: 1000;
   opacity: 0;
   transition: all 0.5s ease;
-  /* Suaviza a animação */
 }
 
 .popup.show {
@@ -198,18 +200,15 @@ body.dark-mode .popup {
   background-color: #444;
   color: #f4f4f4;
   border: 2px solid #fff;
-  /* Borda branca no modo escuro */
 }
 
 body.blur-background {
   overflow: hidden;
-  /* Impede rolagem da página */
 }
 
 body.blur-background .container {
   filter: blur(5px);
   pointer-events: none;
-  /* Desativa interação com elementos no fundo */
 }
 
 .popup-content {
@@ -233,4 +232,98 @@ body.blur-background .container {
 
 .cancel-delete:hover {
   background-color: #5a6268;
+}
+
+.confirm-edit {
+  background-color: #28a745;
+  color: white;
+  margin-right: 10px;
+}
+
+.confirm-edit:hover {
+  background-color: #218838;
+}
+
+.cancel-edit {
+  background-color: #6c757d;
+  color: white;
+}
+
+.cancel-edit:hover {
+  background-color: #5a6268;
+}
+
+.context-menu {
+  display: none;
+  position: absolute;
+  background-color: white;
+  border: 2px solid #000;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 2000;
+  transition: all 0.5s ease;
+}
+
+
+.context-menu button {
+  background: none;
+  border: none;
+  padding: 10px;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+}
+
+.context-menu button:hover {
+  background-color: #d2d2d2;
+}
+
+.context-menu .delete-option:hover {
+  color: white;
+  background-color: #dc3545;
+}
+
+body.dark-mode .context-menu {
+  background-color: #555;
+  color: #f4f4f4;
+  border-color: #666;
+  border: 2px solid #fff;
+}
+
+body.dark-mode .context-menu button {
+  color: white;
+}
+
+body.dark-mode .context-menu button:hover {
+  background-color: #666;
+}
+
+body.dark-mode .context-menu .delete-option:hover {
+  color: white;
+  background-color: #dc3545;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 0 5px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.pagination button:disabled {
+  background-color: #b5d1d8;
+  cursor: not-allowed;
+}
+
+.pagination button:hover:not(:disabled) {
+  background-color: #0056b3;
 }
