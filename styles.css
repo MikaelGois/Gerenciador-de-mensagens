@@ -123,6 +123,9 @@ button {
 }
 
 .messages-container {
+  max-height: 500px;
+  overflow-y: auto;
+  overflow-x: hidden;
   display: flex;
   justify-content: space-between;
   transition: filter 0.3s;
@@ -301,29 +304,4 @@ body.dark-mode .context-menu button:hover {
 body.dark-mode .context-menu .delete-option:hover {
   color: white;
   background-color: #dc3545;
-}
-
-.pagination {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.pagination button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  margin: 0 5px;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
-.pagination button:disabled {
-  background-color: #b5d1d8;
-  cursor: not-allowed;
-}
-
-.pagination button:hover:not(:disabled) {
-  background-color: #0056b3;
 }

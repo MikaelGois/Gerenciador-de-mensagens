@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const addButton = document.getElementById('add-button');
   const messageInput = document.getElementById('message-input');
+  const messagesContainer = document.getElementById('messages-container');
 
   const column1 = document.getElementById('column1');
   const column2 = document.getElementById('column2');
@@ -39,6 +40,9 @@ document.addEventListener('DOMContentLoaded', () => {
   let messageToDeleteIndex = null;
   let messageToEditIndex = null;
 
+
+  let messageId = null;
+
   let currentPage = 1;
   const messagesPerPage = 10;
 
@@ -49,11 +53,18 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem('messages', JSON.stringify(messages));
   };
 
-  // Adiciona mensagem - Funcionando
+  // Função para gerar um ID único
+  function generateUniqueId() {
+    return 'msg-' + Math.random().toString(36).substr(2, 9);
+  }
+
+  // Adiciona mensagem
   addButton.addEventListener('click', () => {
     const messageText = messageInput.value.trim();
     if (messageText) {
+      const messageId = generateUniqueId();
       const newMessage = {
+        id: messageId,
         text: messageText,
         dateAdded: new Date().toISOString(),
         lastUsed: new Date().toISOString(),
@@ -66,6 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
       showNotification('Mensagem adicionada com sucesso');
     }
   });
+
 
   // Notificação de confirmação
   const showNotification = (message) => {
@@ -93,12 +105,11 @@ document.addEventListener('DOMContentLoaded', () => {
       sortedMessages.sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded));
     }
 
-    // const start = (currentPage - 1) * messagesPerPage;
-    // const end = start + messagesPerPage;
-    // const paginatedMessages = sortedMessages.slice(start, end);
+    const start = (currentPage - 1) * messagesPerPage;
+    const end = start + messagesPerPage;
+    const paginatedMessages = sortedMessages.slice(start, end);
 
     sortedMessages.forEach((message, index) => {
-      // paginatedMessages.forEach((message, index) => {
       const messageBox = document.createElement('div');
       messageBox.classList.add('message-box');
       messageBox.textContent = message.text;
@@ -135,77 +146,16 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       // Adiciona um menu de contexto ao clicar com o botão direito do mouse - Funcionando
       messageBox.addEventListener('contextmenu', (e) => {
+        // Apresenta o menu de contexto apenas se o modo de seleção não estiver ativado
         if (!selectMode) {
-          // Apresenta o menu de contexto apenas se o modo de seleção não estiver ativado
           e.preventDefault();
-          // messageToEditIndex = start + index;
-          // messageToDeleteIndex = start + index;
+          messageId = message.id;
           contextMenu.style.top = `${e.clientY}px`;
           contextMenu.style.left = `${e.clientX}px`;
           contextMenu.style.display = 'block';
           contextMenu.classList.add('show');
           contextMenu.dataset.index = start + index;
           document.body.classList.add('blur-background');
-
-          // contextMenu.addEventListener('click', () => {
-          //     // Ao clicar em "Editar" - Quebrado
-          //     confirmEdit.addEventListener('click', () => {
-          //         if (messageToEditIndex !== null) {
-          //             messages[messageToEditIndex].text = document.getElementById('edit-message-input').value;
-          //             saveMessages();
-          //             renderMessages();
-          //             showNotification('Mensagem editada');
-          //             document.body.classList.remove('blur-background');
-          //             editPopup.classList.remove('show');
-          //             editPopup.style.display = 'none';
-          //             messageToEditIndex = null;
-          //         }
-          //     });
-
-          //     cancelEdit.addEventListener('click', () => {
-          //         document.body.classList.remove('blur-background');
-          //         editPopup.classList.remove('show');
-          //         editPopup.style.display = 'none';
-          //         messageToEditIndex = null;
-          //     });
-
-          //     editOption.addEventListener('click', () => {
-          //         messageToEditIndex = contextMenu.dataset.index;
-          //         document.getElementById('edit-message-input').value = messages[messageToEditIndex].text;
-          //         document.body.classList.add('blur-background');
-          //         editPopup.classList.add('show');
-          //         editPopup.style.display = 'block';
-          //         contextMenu.style.display = 'none';
-          //     });
-
-          //     // Ao clicar em "Deletar" - Quebrado
-          //     confirmDelete.addEventListener('click', () => {
-          //         if (messageToDeleteIndex !== null) {
-          //             messages.splice(messageToDeleteIndex, 1);
-          //             saveMessages();
-          //             renderMessages();
-          //             showNotification('Mensagem excluída');
-          //             document.body.classList.remove('blur-background');
-          //             deletePopup.classList.remove('show');
-          //             deletePopup.style.display = 'none';
-          //             messageToDeleteIndex = null;
-          //         }
-          //     });
-
-          //     cancelDelete.addEventListener('click', () => {
-          //         document.body.classList.remove('blur-background');
-          //         deletePopup.classList.remove('show');
-          //         deletePopup.style.display = 'none';
-          //         messageToDeleteIndex = null;
-          //     });
-          // });
-
-          // e.preventDefault();
-          // messageToEditIndex = start + index;
-          // contextMenu.style.top = `${e.clientY}px`;
-          // contextMenu.style.left = `${e.clientX}px`;
-          // contextMenu.style.display = 'block';
-          // document.body.classList.add('blur-background');
         }
       });
 
@@ -219,19 +169,21 @@ document.addEventListener('DOMContentLoaded', () => {
     updateButtons();
   };
 
-  // --- Inicio do menu de contexto - Parcialmente funcional
-
-  // Ao clicar em "Editar" - Parcialmente funcional
+  // Ao clicar em "Editar"
   confirmEdit.addEventListener('click', () => {
-    if (messageToEditIndex !== null) {
-      messages[messageToEditIndex].text = document.getElementById('edit-message-input').value;
-      saveMessages();
-      renderMessages();
-      showNotification('Mensagem editada');
+    if (messageId !== null) {
+      // Encontrar a mensagem pelo ID
+      const message = messages.find(msg => msg.id === messageId);
+      if (message) {
+        message.text = document.getElementById('edit-message-input').value;
+        saveMessages();
+        renderMessages();
+        showNotification('Mensagem editada');
+      }
       document.body.classList.remove('blur-background');
       editPopup.classList.remove('show');
       editPopup.style.display = 'none';
-      messageToEditIndex = null;
+      messageId = null; // Resetar a variável após a edição
     }
   });
 
@@ -239,16 +191,20 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.classList.remove('blur-background');
     editPopup.classList.remove('show');
     editPopup.style.display = 'none';
-    messageToEditIndex = null;
+    messageId = null; // Resetar a variável ao cancelar
   });
 
   editOption.addEventListener('click', () => {
-    messageToEditIndex = contextMenu.dataset.index;
-    document.getElementById('edit-message-input').value = messages[messageToEditIndex].text;
-    document.body.classList.add('blur-background');
-    editPopup.classList.add('show');
-    editPopup.style.display = 'block';
-    contextMenu.style.display = 'none';
+    if (messageId !== null) {
+      const message = messages.find(msg => msg.id === messageId);
+      if (message) {
+        document.getElementById('edit-message-input').value = message.text;
+      }
+      document.body.classList.add('blur-background');
+      editPopup.classList.add('show');
+      editPopup.style.display = 'block';
+      contextMenu.style.display = 'none';
+    }
   });
 
   // Ao clicar em "Deletar" - Funcionando
@@ -273,14 +229,19 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   deleteOption.addEventListener('click', () => {
-    messageToDeleteIndex = contextMenu.dataset.index;
+    if (messageId !== null) {
+      const message = messages.findIndex(msg => msg.id === messageId);
+      if (message !== -1) {
+        messageToDeleteIndex = message;
+      }
+    }
     document.body.classList.add('blur-background');
     deletePopup.classList.add('show');
     deletePopup.style.display = 'block';
     contextMenu.style.display = 'none';
   });
 
-  // Cancela ao clicar fora do menu de contexto - Funcionando
+  // Cancela ao clicar fora do menu de contexto
   document.addEventListener('click', (e) => {
     if (contextMenu.style.display !== 'none') {
       if (contextMenu.classList.contains('show') && !contextMenu.contains(e.target)) {
@@ -292,10 +253,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     };
   });
-
-  // --- Fim do menu de contexto
-
-  // --- Inicio modo escuro
 
   // Modo escuro - Funcionando
   toggleDarkMode.addEventListener('click', () => {
@@ -312,10 +269,7 @@ document.addEventListener('DOMContentLoaded', () => {
     toggleDarkMode.textContent = 'Modo Claro';
   }
 
-  // --- Fim modo escuro
-
-
-  // Habilita ou desabilita os botões de acordo com o modo de seleção - Funcionando
+  // Habilita ou desabilita os botões de acordo com o modo de seleção
   const updateButtons = () => {
     if (selectMode) {
       importButton.disabled = true; // Desabilita o botão de importação
@@ -328,7 +282,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  // Entra ou sai do modo de seleção - Funcionando
+  // Entra ou sai do modo de seleção
   const toggleSelectMode = () => {
     selectMode = !selectMode;
     selectedMessages.clear();
@@ -336,7 +290,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderMessages();
   };
 
-  // Deleta mensagens selecionadas - Parcialmente funcional
+  // Deleta mensagens selecionadas
   const deleteSelectedMessages = () => {
     messages = messages.filter((_, index) => !selectedMessages.has(index));
     selectedMessages.clear();
@@ -346,7 +300,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Deve sair do modo de seleção
   };
 
-  // Exporta mensagens - Parcialmente funcional
+  // Exporta mensagens
   const exportMessages = () => {
     if (selectMode) {
       // Exporta apenas as mensagens selecionadas - Funcionando
@@ -380,22 +334,54 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  // Importa mensagens - Funcionando
+  // Importa mensagens
+  // const importMessages = (event) => {
+  //   const file = event.target.files[0];
+  //   if (file) {
+  //     const reader = new FileReader();
+  //     reader.onload = (e) => {
+  //       const content = e.target.result;
+  //       const importedMessages = content.split('\n').filter(line => line.trim()).map(line => {
+  //         const text = line.replace(/^"|"$/g, '');
+  //         return {
+  //           text,
+  //           dateAdded: new Date().toISOString(),
+  //           lastUsed: new Date().toISOString(),
+  //           usageCount: 0
+  //         };
+  //       });
+  //       messages = messages.concat(importedMessages);
+  //       saveMessages();
+  //       renderMessages();
+  //       showNotification('Mensagens importadas com sucesso!');
+  //     };
+  //     reader.readAsText(file);
+  //   }
+  // };
+
   const importMessages = (event) => {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = (e) => {
         const content = e.target.result;
-        const importedMessages = content.split('\n').filter(line => line.trim()).map(line => {
-          const text = line.replace(/^"|"$/g, '');
-          return {
+
+        // Usa expressão regular para capturar mensagens entre aspas, incluindo quebras de linha
+        const importedMessages = [];
+        const regex = /"([^"]*)"/g;
+        let match;
+        while ((match = regex.exec(content)) !== null) {
+          const text = match[1]; // Captura o texto dentro das aspas
+          const messageId = generateUniqueId();
+          importedMessages.push({
+            id: messageId,
             text,
             dateAdded: new Date().toISOString(),
             lastUsed: new Date().toISOString(),
             usageCount: 0
-          };
-        });
+          });
+        }
+
         messages = messages.concat(importedMessages);
         saveMessages();
         renderMessages();
