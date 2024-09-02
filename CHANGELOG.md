@@ -5,6 +5,27 @@ Todas as alterações significativas neste projeto serão documentadas neste arq
 O formato é baseado em [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 e este projeto adere ao [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.7] [stable] - 2024-09-01
+
+  ### Added - Adicionado
+
+  - Adicionado novos favicon para diferentes dispositivos.
+
+  ### Fixed - Corrigido
+
+  - Nenhum problema foi corrigido nessa versão.
+
+  ### Changed - Alterado
+
+  - Favicon do site foi alterado para corresponder a diferentes dispositivos.
+
+  ### Deprecated - Descontinuado
+
+  - Nenhuma funcionalidade foi descontinuada nessa versão.
+
+  ### Removed - Removido
+
+  - Nenhuma funcionalidade foi removida nessa versão.
 
 ## [1.2.6] [stable] - 2024-08-24
 
