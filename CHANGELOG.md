@@ -33,12 +33,12 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
   - Adicionado uma barra de rolagem na lista de mensagens.
   - Agora ao criar ou importar uma nova mensagem, é adicionado um ID único atrelado a mensagem.
-  - Adicionado o icone do site na aba do navegador.
+  - Adicionado o ícone do site na aba do navegador.
 
   ### Fixed - Corrigido
 
   - Botão de editar mensagens parou de funcionar. [Corrigido]
-  - Conteudo da pagina sendo cortado ao adicionar muitas mensagens. [Corrigido]
+  - Conteúdo da página sendo cortado ao adicionar muitas mensagens. [Corrigido]
   - Mensagens estão sumindo ao entrar no modo de seleção. [Corrigido]
   - Ao importar mensagens, não é considerado as aspas como delimitação e sim as quebras de linhas. [Corrigido]
   - Excluir mensagem não exclui as mensagens correspondentes. [Corrigido]
@@ -48,7 +48,7 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
   - Estilo de caixa de seleção de mensagens.
   - Estilo de popup de edição de mensagens.
-  - Alterado o nodo do arquivo `REALEASE.md` para `CHANGELOG.md`.
+  - Alterado o nome do arquivo `REALEASE.md` para `CHANGELOG.md`.
 
   ### Deprecated - Descontinuado
 
@@ -56,7 +56,7 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
   ### Removed - Removido
 
-  - Botões de paginação foram ocultados até que o problema seja resolvido.
+  - Botões de paginação foram ocultados até que o problema de paginação seja resolvido.
 
 ## [1.2.5-ac] [beta] - 2024-07-10
 
@@ -77,7 +77,7 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
   ### Deprecated - Descontinuado
 
-  - Páginação: O recurso de páginação está com problemas ao lidar com as mensagens exibidas, causando comportamentos indesejados ao excluir mensagens e filtrar mensagens por mais recentes, mais usadas, etc.
+  - Paginação: O recurso de paginação está com problemas ao lidar com as mensagens exibidas, causando comportamentos indesejados ao excluir mensagens e filtrar mensagens por mais recentes, mais usadas, etc.
 
   ### Removed - Removido
 
