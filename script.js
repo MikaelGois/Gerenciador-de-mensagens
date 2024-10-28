@@ -1,64 +1,78 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const addButton = document.getElementById('add-button');
-  const messageInput = document.getElementById('message-input');
-  const messagesContainer = document.getElementById('messages-container');
 
+  // Add message button
+  const addButton = document.getElementById('add-button');
+
+  // Message input field
+  const messageInput = document.getElementById('message-input');
+
+  // Messages container
+  const messagesContainer = document.getElementById('messages-container');
   const column1 = document.getElementById('column1');
   const column2 = document.getElementById('column2');
 
+  // Dark mode toggle
   const toggleDarkMode = document.getElementById('toggle-dark-mode');
 
+  // Notification
   const notification = document.getElementById('notification');
 
+  // Delete message options
   const deleteOption = document.getElementById('delete-option');
   const deletePopup = document.getElementById('delete-popup');
   const confirmDelete = document.getElementById('confirm-delete');
   const cancelDelete = document.getElementById('cancel-delete');
 
+  // Edit message options
   const editOption = document.getElementById('edit-option');
   const editPopup = document.getElementById('edit-popup');
   const editMessageInput = document.getElementById('edit-message-input');
   const confirmEdit = document.getElementById('confirm-edit');
   const cancelEdit = document.getElementById('cancel-edit');
 
+  // Context menu
   const contextMenu = document.getElementById('context-menu');
   const sortSelect = document.getElementById('sort-select');
 
-
+  // Select, Import/export, delete selected buttons.
   const importFile = document.getElementById('import-file');
   const selectButton = document.getElementById('select-button');
   const importButton = document.getElementById('import-button');
   const exportButton = document.getElementById('export-button');
   const deleteSelectedButton = document.getElementById('delete-selected-button');
 
+  // Pagination buttons
   const prevPage = document.getElementById('prev-page');
   const nextPage = document.getElementById('next-page');
 
+  // Variables
   let messages = JSON.parse(localStorage.getItem('messages')) || [];
   let darkMode = JSON.parse(localStorage.getItem('darkMode')) || false;
 
+  // Index of the message to delete or edit
   let messageToDeleteIndex = null;
   let messageToEditIndex = null;
 
-
+  // Set initial values
   let messageId = null;
-
   let currentPage = 1;
-  const messagesPerPage = 10;
-
   let selectMode = false;
   let selectedMessages = new Set();
 
+  // Number of messages per page
+  const messagesPerPage = 10;
+
+  // Save new messages
   const saveMessages = () => {
     localStorage.setItem('messages', JSON.stringify(messages));
   };
 
-  // Função para gerar um ID único
+  // Generate unique ID
   function generateUniqueId() {
     return 'msg-' + Math.random().toString(36).substr(2, 9);
   }
 
-  // Adiciona mensagem
+  // Add message
   addButton.addEventListener('click', () => {
     const messageText = messageInput.value.trim();
     if (messageText) {
@@ -79,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 
-  // Notificação de confirmação
+  // Show confirmation popup
   const showNotification = (message) => {
     notification.textContent = message;
     notification.style.display = 'block';
@@ -88,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 3000);
   };
 
-  // Mostra mensagens
+  // Render messages
   const renderMessages = () => {
     column1.innerHTML = '';
     column2.innerHTML = '';
@@ -169,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
     updateButtons();
   };
 
-  // Ao clicar em "Editar"
+  // Clicking on the "Edit" button
   confirmEdit.addEventListener('click', () => {
     if (messageId !== null) {
       // Encontrar a mensagem pelo ID
@@ -187,6 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // Canceling the edit
   cancelEdit.addEventListener('click', () => {
     document.body.classList.remove('blur-background');
     editPopup.classList.remove('show');
@@ -194,6 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
     messageId = null; // Resetar a variável ao cancelar
   });
 
+  // Editing a message
   editOption.addEventListener('click', () => {
     if (messageId !== null) {
       const message = messages.find(msg => msg.id === messageId);
@@ -207,7 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Ao clicar em "Deletar" - Funcionando
+  // Clicking on the "Delete" button
   confirmDelete.addEventListener('click', () => {
     if (messageToDeleteIndex !== null) {
       messages.splice(messageToDeleteIndex, 1);
@@ -221,6 +237,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // Canceling the delete
   cancelDelete.addEventListener('click', () => {
     document.body.classList.remove('blur-background');
     deletePopup.classList.remove('show');
@@ -228,6 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
     messageToDeleteIndex = null;
   });
 
+  // Deleting a message
   deleteOption.addEventListener('click', () => {
     if (messageId !== null) {
       const message = messages.findIndex(msg => msg.id === messageId);
@@ -241,7 +259,7 @@ document.addEventListener('DOMContentLoaded', () => {
     contextMenu.style.display = 'none';
   });
 
-  // Cancela ao clicar fora do menu de contexto
+  // Cancel the menu of context when clicking outside
   document.addEventListener('click', (e) => {
     if (contextMenu.style.display !== 'none') {
       if (contextMenu.classList.contains('show') && !contextMenu.contains(e.target)) {
@@ -254,7 +272,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
   });
 
-  // Modo escuro - Funcionando
+  // Dark mode
   toggleDarkMode.addEventListener('click', () => {
     darkMode = !darkMode;
     document.body.classList.toggle('dark-mode', darkMode);
